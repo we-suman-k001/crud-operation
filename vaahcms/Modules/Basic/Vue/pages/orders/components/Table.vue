@@ -56,11 +56,12 @@ function getSeverity(product) {
 
 
             <Column field="status" header="Status"
-                    style="width:150px;"
+                    style="width:150px; padding-left:1rem;"
                     :sortable="true">
 
                 <template #body="slotProps">
                     <Tag :value="slotProps.data.status"
+                         class="p-tag"
                          :severity="getSeverity(slotProps.data)"/>
                 </template>
 
@@ -69,10 +70,11 @@ function getSeverity(product) {
 
             <Column field="amount" header="Amount"
                     style="width:150px;"
+                    :class="'text-left'"
                     :sortable="true">
 
                 <template #body="props">
-                    {{ props.data.amount }} &#8377
+                    &#8377 {{ props.data.amount }}
                 </template>
 
             </Column>
@@ -84,7 +86,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    {{ props.data.tax }} &#8377
+                    &#8377 {{ props.data.tax }}
                 </template>
 
             </Column>
@@ -95,7 +97,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    {{ props.data.total_amount }} &#8377
+                    &#8377 {{ props.data.total_amount }}
                 </template>
 
             </Column>

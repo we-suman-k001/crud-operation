@@ -900,7 +900,7 @@ export const useOrderStore = defineStore({
                 if(amount !== null){
                     let tax = null;
                     tax = (amount * 10) / 100;
-                    return tax;
+                    return parseFloat(tax.toFixed(2));
                 }
                 return null;
             },
@@ -909,7 +909,7 @@ export const useOrderStore = defineStore({
                 if(amount !== null){
                     let calculated_amount = null;
                     calculated_amount = parseFloat(amount) + (amount * 10) / 100;
-                    return calculated_amount;
+                    return parseFloat(calculated_amount.toFixed(2))
                 }
                 return null;
             },
