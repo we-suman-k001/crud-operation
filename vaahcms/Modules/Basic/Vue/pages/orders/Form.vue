@@ -162,25 +162,33 @@ const toggleFormMenu = (event) => {
                 </VhField>
 
                 <VhField label="Amount">
-                    <InputText class="w-full"
-                               name="orders-amount"
-                               data-testid="orders-amount"
-                               @update:modelValue="store.watchAmount"
-                               v-model="store.item.amount"/>
+                    <InputNumber class="w-full"
+                                 name="orders-amount"
+                                 data-testid="orders-amount"
+                                 v-model="store.item.amount"
+                                 mode="currency"
+                                 currency="INR"
+                                 @update:modelValue="store.watchAmount"
+                    />
                 </VhField>
 
                 <VhField label="Tax">
-                    <InputText class="w-full"
-                               name="orders-tax"
-                               data-testid="orders-tax"
-                               v-model="store.item.tax"/>
+                    <InputNumber class="w-full"
+                                 name="orders-tax"
+                                 data-testid="orders-tax"
+                                 v-model="store.item.tax"
+                                 mode="currency"
+                                 currency="INR"
+                    />
                 </VhField>
 
                 <VhField label="Total Amount">
-                    <InputText class="w-full"
-                               name="orders-total_amount"
-                               data-testid="orders-total_amount"
-                               v-model="store.item.total_amount"/>
+                    <InputNumber class="w-full"
+                                 name="orders-total_amount"
+                                 data-testid="orders-total_amount"
+                                 mode="currency"
+                                 currency="INR"
+                                 v-model="store.item.total_amount"/>
                 </VhField>
 
             </div>

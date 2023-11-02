@@ -152,23 +152,13 @@ export const useOrderStore = defineStore({
                     this.item.slug = vaah().strToSlug(name);
                 }
             },
-            watchAmount(amount){
+            watchAmount(amount) {
                 this.item.tax = '';
                 this.item.total_amount = '';
-                if(amount && amount !== ''){
-                    this.item.tax=this.calculateTax(amount);
+                if (amount && amount !== '') {
+                    this.item.tax = this.calculateTax(amount);
                     this.item.total_amount = this.calculateTotal(amount);
                 }
-            },
-            calculateTax(amount){
-                let tax = '';
-                tax = (amount*10)/100;
-                return tax;
-            },
-            calculateTotal(amount){
-                let calculated_amount = '';
-                calculated_amount = parseFloat(amount) + (amount*10)/100;
-                return calculated_amount;
             },
             //---------------------------------------------------------------------
             async getAssets() {
@@ -904,6 +894,18 @@ export const useOrderStore = defineStore({
 
                 this.form_menu_list = form_menu;
 
+            },
+            //---------------------------------------------------------------------
+            calculateTax(amount) {
+                let tax = '';
+                tax = (amount * 10) / 100;
+                return tax;
+            },
+            //---------------------------------------------------------------------
+            calculateTotal(amount) {
+                let calculated_amount = '';
+                calculated_amount = parseFloat(amount) + (amount * 10) / 100;
+                return calculated_amount;
             },
             //---------------------------------------------------------------------
         }
