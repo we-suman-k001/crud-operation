@@ -66,6 +66,15 @@ class Order extends Model
         ];
     }
     //-------------------------------------------------
+//    public function getTaxAttribute($value): string
+//    {
+//        return $value.'%';
+//    }
+//    public function setTaxAttribute($value){
+//        $tax = str_replace($value,'%','');
+//        $this->attributes['tax']= $tax;
+//    }
+    //-------------------------------------------------
     public static function getFillableColumns()
     {
         $model = new self();
@@ -591,8 +600,12 @@ class Order extends Model
     {
 
         $rules = array(
-            'name' => 'required|max:150',
-            'slug' => 'required|max:150',
+            'name'         => 'required|max:150',
+            'slug'         => 'required|max:150',
+            'status'       => 'required',
+            'amount'       =>'required|numeric',
+            'tax'          => 'required|numeric',
+            'total_amount' => 'required|numeric'
         );
 
         $validator = \Validator::make($inputs, $rules);

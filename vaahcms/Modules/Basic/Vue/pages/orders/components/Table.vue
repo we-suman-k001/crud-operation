@@ -5,6 +5,22 @@ import { useOrderStore } from '../../../stores/store-orders'
 const store = useOrderStore();
 const useVaah = vaah();
 
+function getSeverity(product) {
+    switch (product.status) {
+        case 'In Stock':
+            return 'success';
+
+        case 'A few left':
+            return 'warning';
+
+        case 'Out of stock':
+            return 'danger';
+
+        default:
+            return null;
+    }
+}
+
 </script>
 
 <template>
@@ -39,22 +55,37 @@ const useVaah = vaah();
             </Column>
 
 
-                <Column field="updated_at" header="Updated"
-                        v-if="store.isViewLarge()"
+                <Column field="status" header="Status"
                         style="width:150px;"
                         :sortable="true">
-
-                    <template #body="prop">
-                        {{useVaah.toLocalTimeShortFormat(prop.data.updated_at)}}
+                    <template #body="slotProps">
+                        <Tag :value="slotProps.data.status"
+                             :severity="getSeverity(slotProps.data)" />
                     </template>
-
                 </Column>
+
+             <Column field="amount" header="Amount"
+                     style="width:150px;"
+                     :sortable="true" />
+
+             <Column field="tax" header="Tax"
+                     v-if="store.isViewLarge()"
+                     style="width:150px;"
+                     :sortable="true">
+                 <template #body="slotProps">
+                     {{slotProps.data.tax.toLocaleString('ind', {style: 'currency', currency: 'rs'})}}
+                 </template>
+             </Column>
+
+             <Column field="total_amount" header="Total Amount"
+                     v-if="store.isViewLarge()"
+                     style="width:150px;"
+                     :sortable="true" />
 
             <Column field="is_active" v-if="store.isViewLarge()"
                     :sortable="true"
                     style="width:100px;"
                     header="Is Active">
-
                 <template #body="prop">
                     <InputSwitch v-model.bool="prop.data.is_active"
                                  data-testid="orders-table-is-active"
