@@ -152,12 +152,12 @@ export const useOrderStore = defineStore({
                     this.item.slug = vaah().strToSlug(name);
                 }
             },
+            //---------------------------------------------------------------------
             watchAmount(amount) {
-                this.item.tax = '';
-                this.item.total_amount = '';
-                if (amount && amount !== '') {
-                    this.item.tax = this.calculateTax(amount);
-                    this.item.total_amount = this.calculateTotal(amount);
+                if (amount || amount.value !== null) {
+                    this.item.tax = this.calculateTax(amount.value);
+                    this.item.total_amount = this.calculateTotal(amount.value);
+                    console.log(this.item.tax,this.item.total_amount)
                 }
             },
             //---------------------------------------------------------------------
@@ -897,15 +897,21 @@ export const useOrderStore = defineStore({
             },
             //---------------------------------------------------------------------
             calculateTax(amount) {
-                let tax = '';
-                tax = (amount * 10) / 100;
-                return tax;
+                if(amount !== null){
+                    let tax = null;
+                    tax = (amount * 10) / 100;
+                    return tax;
+                }
+                return null;
             },
             //---------------------------------------------------------------------
             calculateTotal(amount) {
-                let calculated_amount = '';
-                calculated_amount = parseFloat(amount) + (amount * 10) / 100;
-                return calculated_amount;
+                if(amount !== null){
+                    let calculated_amount = null;
+                    calculated_amount = parseFloat(amount) + (amount * 10) / 100;
+                    return calculated_amount;
+                }
+                return null;
             },
             //---------------------------------------------------------------------
         }

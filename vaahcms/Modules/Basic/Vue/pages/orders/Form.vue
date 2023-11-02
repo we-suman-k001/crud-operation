@@ -163,12 +163,12 @@ const toggleFormMenu = (event) => {
 
                 <VhField label="Amount">
                     <InputNumber class="w-full"
+                                 @input="store.watchAmount"
                                  name="orders-amount"
                                  data-testid="orders-amount"
                                  v-model="store.item.amount"
                                  mode="currency"
                                  currency="INR"
-                                 @update:modelValue="store.watchAmount"
                     />
                 </VhField>
 
