@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
-import { useOrderStore } from '../../stores/store-orders'
+import {useOrderStore} from '../../stores/store-orders'
 
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
 import {useRoute} from 'vue-router';
@@ -10,8 +10,7 @@ const store = useOrderStore();
 const route = useRoute();
 
 onMounted(async () => {
-    if(route.params && route.params.id)
-    {
+    if (route.params && route.params.id) {
         await store.getItem(route.params.id);
     }
 
@@ -28,7 +27,7 @@ const toggleFormMenu = (event) => {
 </script>
 <template>
 
-    <div class="col-6" >
+    <div class="col-6">
 
         <Panel class="is-small">
 
@@ -87,7 +86,7 @@ const toggleFormMenu = (event) => {
 
                     <Menu ref="form_menu"
                           :model="store.form_menu_list"
-                          :popup="true" />
+                          :popup="true"/>
                     <!--/form_menu-->
 
 
@@ -97,7 +96,6 @@ const toggleFormMenu = (event) => {
                             @click="store.toList()">
                     </Button>
                 </div>
-
 
 
             </template>
@@ -114,7 +112,7 @@ const toggleFormMenu = (event) => {
                     <div class="flex align-items-center justify-content-between">
 
                         <div class="">
-                            Deleted {{store.item.deleted_at}}
+                            Deleted {{ store.item.deleted_at }}
                         </div>
 
                         <div class="ml-3">
@@ -152,6 +150,36 @@ const toggleFormMenu = (event) => {
                                  name="orders-active"
                                  data-testid="orders-active"
                                  v-model="store.item.is_active"/>
+                </VhField>
+
+                <VhField label="Status">
+                    <Dropdown class="p-dropdown-sm"
+                              :options="store.order_status"
+                              name="orders-status"
+                              data-testid="orders-status"
+                              v-model="store.item.status"
+                              placeholder="Select a status"/>
+                </VhField>
+
+                <VhField label="Amount">
+                    <InputText class="w-full"
+                               name="orders-amount"
+                               data-testid="orders-amount"
+                               v-model="store.item.amount"/>
+                </VhField>
+
+                <VhField label="Tax">
+                    <InputText class="w-full"
+                               name="orders-tax"
+                               data-testid="orders-tax"
+                               v-model="store.item.tax"/>
+                </VhField>
+
+                <VhField label="Total Amount">
+                    <InputText class="w-full"
+                               name="orders-total_amount"
+                               data-testid="orders-total_amount"
+                               v-model="store.item.total_amount"/>
                 </VhField>
 
             </div>
