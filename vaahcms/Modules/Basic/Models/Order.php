@@ -11,12 +11,19 @@ use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
 use WebReinvent\VaahCms\Models\User;
 use WebReinvent\VaahCms\Libraries\VaahSeeder;
 
+
 class Order extends Model
 {
 
     use SoftDeletes;
     use CrudWithUuidObservantTrait;
 
+    //-------------------------------------------------
+    protected $casts = [
+        'amount'=>'float',
+        'tax' => 'float',
+        'total_amount'=>'float'
+    ];
     //-------------------------------------------------
     protected $table = 'orders';
     //-------------------------------------------------
@@ -66,14 +73,6 @@ class Order extends Model
         ];
     }
     //-------------------------------------------------
-//    public function getTaxAttribute($value): string
-//    {
-//        return $value.'%';
-//    }
-//    public function setTaxAttribute($value){
-//        $tax = str_replace($value,'%','');
-//        $this->attributes['tax']= $tax;
-//    }
     //-------------------------------------------------
     public static function getFillableColumns()
     {
