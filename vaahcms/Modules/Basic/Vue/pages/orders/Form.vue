@@ -165,6 +165,7 @@ const toggleFormMenu = (event) => {
                     <InputText class="w-full"
                                name="orders-amount"
                                data-testid="orders-amount"
+                               @update:modelValue="store.watchAmount"
                                v-model="store.item.amount"/>
                 </VhField>
 
