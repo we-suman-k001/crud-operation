@@ -154,11 +154,27 @@ export const useOrderStore = defineStore({
             },
             //---------------------------------------------------------------------
             watchAmount(amount) {
-                if (amount || amount.value !== null) {
-                    this.item.tax = this.calculateTax(amount.value);
-                    this.item.total_amount = this.calculateTotal(amount.value);
+                console.log('amount',amount)
+                if (amount || amount !== null) {
+                    this.item.tax = this.calculateTax(amount);
+                    this.item.total_amount = this.calculateTotal(amount);
                     console.log(this.item.tax,this.item.total_amount)
                 }
+            },
+            //---------------------------------------------------------------------
+            watchTotalAmount(){
+            if(this.item.total_amount !== this.item.amount){
+                this.item.amount = this.calculateAmount(this.item.total_amount);
+            }
+            },
+            calculateAmount: function (total_amount) {
+                this.item.amount=null;
+                if (total_amount !== null) {
+                    let calculated_amount = null;
+                    calculated_amount = parseFloat(total_amount) - (10 * total_amount) / 100;
+                    return parseFloat(calculated_amount.toFixed(2));
+                }
+                return null;
             },
             //---------------------------------------------------------------------
             async getAssets() {
