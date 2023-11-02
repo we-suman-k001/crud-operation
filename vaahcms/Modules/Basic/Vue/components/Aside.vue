@@ -20,15 +20,16 @@ const items = ref([
                 to: "/"
             },
             {
-                label: 'Blogs',
-                icon: 'fa-solid fa-tarp-droplet',
-                to: "/blogs"
-            },
+              label:'Orders',
+              icon: 'fa-solid fa-tarp-droplet',
+              to:'/orders'
+            }
         ]
     },
 ]);
 
 </script>
+<!--<i class="fa-brands fa-product-hunt"></i>-->
 <template>
 
     <div v-if="height">
