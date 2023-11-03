@@ -708,6 +708,9 @@ export const useOrderStore = defineStore({
                         }
                     },
                     {
+                        separator: true
+                    },
+                    {
                         label: 'Trash',
                         icon: 'pi pi-times',
                         command: async () => {
@@ -967,9 +970,37 @@ export const useOrderStore = defineStore({
             },
             //---------------------------------------------------------------------
             toggleChangeStatus(){
-                if (!this.isListActionValid()) {
+                if (this.action.items.length < 1) {
+                    vaah().toastErrors(['Select records']);
                     this.show_change_status_dropdown = false;
                     return false;
+                }
+            },
+            bulkChangeStatus(status){
+            console.log(this.action.items,status);
+                let query = {
+                    items:this.action.items,
+                    status:status.value
+                }
+                let method = 'PUT';
+                let options = {
+                    params: query,
+                    method: method
+                };
+                let url = this.ajax_url + '/bulk-change-status';
+                 vaah().ajax(
+                    url,
+                    this.afterBulkChangeStatus,
+                    options
+                );
+
+            },
+            //---------------------------------------------------------------------
+            async afterBulkChangeStatus(data){
+                if(data){
+                    this.show_change_status_dropdown=false;
+                    this.action = vaah().clone(this.empty_action);
+                    await this.getList();
                 }
             }
             //---------------------------------------------------------------------

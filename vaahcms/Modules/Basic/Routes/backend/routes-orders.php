@@ -27,7 +27,11 @@ function () {
      */
     Route::put('/change-status','OrdersController@changeStatus')
         ->name('vh.backend.basic.orders.list.change-status');
-
+    /**
+     * Update status
+     */
+    Route::put('/bulk-change-status','OrdersController@bulkChangeStatus')
+        ->name('vh.backend.basic.orders.list.bulk-change-status');
     /**
      *
      * Update List

@@ -78,6 +78,7 @@ const toggleBulkMenuState = (event) => {
                         v-model="store.changeOrderStatusText"
                         v-if="store.show_change_status_dropdown"
                         placeholder="Select Status"
+                        @change="store.bulkChangeStatus"
                     />
                 </div>
             <!--right-->
