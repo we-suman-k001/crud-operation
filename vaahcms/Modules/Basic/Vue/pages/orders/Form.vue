@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {onMounted, ref, watchEffect, watch} from "vue";
 import {useOrderStore} from '../../stores/store-orders'
 
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
@@ -16,6 +16,13 @@ onMounted(async () => {
 
     await store.getFormMenu();
 });
+
+watch(store.item, (value)=>{
+    if (store.item.amount) {
+        console.log(store.item.tax,store.item.total_amount)
+    }
+
+})
 
 //--------form_menu
 const form_menu = ref();
@@ -164,11 +171,11 @@ const toggleFormMenu = (event) => {
                 <VhField label="Amount">
                     <InputNumber class="w-full"
                                  name="orders-amount"
+                                 @input="store.watchAmount"
                                  data-testid="orders-amount"
                                  v-model="store.item.amount"
                                  mode="currency"
                                  currency="INR"
-                                 @update:modelValue="store.watchAmount"
                     />
                 </VhField>
 
@@ -185,11 +192,11 @@ const toggleFormMenu = (event) => {
 
                 <VhField label="Total Amount">
                     <InputNumber class="w-full"
-                                 @update:modelValue="store.watchTotalAmount"
                                  name="orders-total_amount"
                                  data-testid="orders-total_amount"
                                  mode="currency"
                                  currency="INR"
+                                 @input="store.watchTotalAmount"
                                  v-model="store.item.total_amount"/>
                 </VhField>
 
