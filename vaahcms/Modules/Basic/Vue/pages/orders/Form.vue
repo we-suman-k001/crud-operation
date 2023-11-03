@@ -180,7 +180,7 @@ const toggleFormMenu = (event) => {
                                  locale="en-IN"
                                  mode="currency"
                                  currency="INR"
-                                 :max-fraction-digits="4"
+
                     />
                 </VhField>
 
@@ -193,7 +193,6 @@ const toggleFormMenu = (event) => {
                                  locale="en-IN"
                                  mode="currency"
                                  currency="INR"
-                                 :max-fraction-digits="4"
                                  readonly
                     />
                 </VhField>
@@ -207,7 +206,6 @@ const toggleFormMenu = (event) => {
                                  locale="en-IN"
                                  mode="currency"
                                  currency="INR"
-                                 :max-fraction-digits="4"
                                  v-model="store.item.total_amount"/>
                 </VhField>
 
