@@ -68,7 +68,18 @@ const toggleBulkMenuState = (event) => {
 
             </div>
             <!--/left-->
-
+                <div>
+                    <Dropdown
+                        :options="store.order_status"
+                        option-value="slug"
+                        option-label="name"
+                        class="bg-indigo-500"
+                        inputClass="text-white font-semibold"
+                        v-model="store.changeOrderStatusText"
+                        v-if="store.show_change_status_dropdown"
+                        placeholder="Select Status"
+                    />
+                </div>
             <!--right-->
             <div >
 

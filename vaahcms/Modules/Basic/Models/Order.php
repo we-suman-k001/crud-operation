@@ -363,6 +363,9 @@ class Order extends Model
             case 'restore':
                 self::whereIn('id', $items_id)->restore();
                 break;
+            default:
+                dd($items);
+                break;
         }
 
         $response['success'] = true;

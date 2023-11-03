@@ -23,6 +23,7 @@ let empty_states = {
     action: {
         type: null,
         items: [],
+        status: null
     }
 };
 
@@ -65,7 +66,9 @@ export const useOrderStore = defineStore({
             list_create_menu: [],
             item_menu_list: [],
             item_menu_state: null,
+            changeOrderStatusText:null,
             form_menu_list: [],
+            show_change_status_dropdown:false,
             order_status: [
                 {name: 'In stock', slug: 'in-stock'},
                 {name: 'A few left', slug: 'a-few-left'},
@@ -266,7 +269,9 @@ export const useOrderStore = defineStore({
                 }
 
                 if (!this.isListActionValid()) {
+                    this.show_change_status_dropdown = false;
                     return false;
+
                 }
 
 
@@ -695,6 +700,14 @@ export const useOrderStore = defineStore({
                         separator: true
                     },
                     {
+                        label: 'Change Status',
+                        icon: 'pi pi-sync',
+                        command: async () => {
+                            this.show_change_status_dropdown = true;
+                            this.toggleChangeStatus()
+                        }
+                    },
+                    {
                         label: 'Trash',
                         icon: 'pi pi-times',
                         command: async () => {
@@ -952,6 +965,13 @@ export const useOrderStore = defineStore({
                     return parseFloat(calculated_amount.toFixed(4));
                 }
             },
+            //---------------------------------------------------------------------
+            toggleChangeStatus(){
+                if (!this.isListActionValid()) {
+                    this.show_change_status_dropdown = false;
+                    return false;
+                }
+            }
             //---------------------------------------------------------------------
         }
     })
