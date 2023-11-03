@@ -65,6 +65,7 @@ function getSeverity(product) {
                               v-model="slotProps.data.status"
                               option-label="name"
                               option-value="slug"
+                              @change="store.changeStatus(slotProps.data)"
                               :pt="{
                                         root: { class: [
                                         'md:w-7rem','border-round-md',

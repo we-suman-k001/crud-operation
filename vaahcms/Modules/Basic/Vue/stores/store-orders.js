@@ -448,8 +448,25 @@ export const useOrderStore = defineStore({
                 } else {
                     await this.itemAction('deactivate', item);
                 }
-            }
-            ,
+            },
+            //---------------------------------------------------------------------
+            async changeStatus(item){
+                let query = {
+                    id:item.id,
+                    status:item.status
+                }
+                let method = 'PUT';
+                let options = {
+                    params: query,
+                    method: method
+                };
+                let url = this.ajax_url + '/change-status';
+                await vaah().ajax(
+                    url,
+                    // this.afterChangeStatus,
+                    options
+                );
+            },
             //---------------------------------------------------------------------
             async paginate(event) {
                 this.query.page = event.page + 1;

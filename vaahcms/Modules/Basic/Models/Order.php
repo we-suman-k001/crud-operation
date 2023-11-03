@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Faker\Factory;
+use JetBrains\PhpStorm\NoReturn;
 use WebReinvent\VaahCms\Traits\CrudWithUuidObservantTrait;
 use WebReinvent\VaahCms\Models\User;
 use WebReinvent\VaahCms\Libraries\VaahSeeder;
@@ -302,7 +303,7 @@ class Order extends Model
     }
 
     //-------------------------------------------------
-    public static function updateList($request)
+    public static function updateList($request): array
     {
 
         $inputs = $request->all();
@@ -590,7 +591,6 @@ class Order extends Model
                     ->restore();
                 break;
         }
-
         return self::getItem($id);
     }
     //-------------------------------------------------
@@ -681,6 +681,10 @@ class Order extends Model
     }
 
     //-------------------------------------------------
+    public static function changeStatus($request){
+        dd($request);
+        return $data['message'] = 'success';
+    }
     //-------------------------------------------------
     //-------------------------------------------------
 

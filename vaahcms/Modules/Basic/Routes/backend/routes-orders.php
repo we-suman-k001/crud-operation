@@ -3,9 +3,9 @@
 Route::group(
     [
         'prefix' => 'backend/basic/orders',
-        
+
         'middleware' => ['web', 'has.backend.access'],
-        
+
         'namespace' => 'Backend',
 ],
 function () {
@@ -42,6 +42,10 @@ function () {
      */
     Route::post('/', 'OrdersController@createItem')
         ->name('vh.backend.basic.orders.create');
+    /**
+     * Update status
+     */
+    Route::put('/change-status','OrdersController@changeStatus');
     /**
      * Get Item
      */
