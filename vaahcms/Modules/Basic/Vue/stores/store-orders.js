@@ -463,9 +463,13 @@ export const useOrderStore = defineStore({
                 let url = this.ajax_url + '/change-status';
                 await vaah().ajax(
                     url,
-                    // this.afterChangeStatus,
+                    this.afterChangeStatus,
                     options
                 );
+            },
+            //---------------------------------------------------------------------
+            afterChangeStatus(){
+
             },
             //---------------------------------------------------------------------
             async paginate(event) {
@@ -944,7 +948,7 @@ export const useOrderStore = defineStore({
             //---------------------------------------------------------------------
             async calculateAmount(total_amount) {
                 if (total_amount !== null) {
-                    let calculated_amount = parseFloat(total_amount) - (10 * total_amount) / 100;
+                    let calculated_amount = total_amount/1.1;
                     return parseFloat(calculated_amount.toFixed(4));
                 }
             },

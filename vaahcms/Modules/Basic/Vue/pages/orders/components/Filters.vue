@@ -112,6 +112,39 @@ const store = useOrderStore();
             </VhFieldVertical>
 
 
+            <VhFieldVertical >
+                <template #label>
+                    <b>Status:</b>
+                </template>
+
+                <div class="field-radiobutton">
+                    <RadioButton name="in-stock"
+                                 inputId="in-stock"
+                                 data-testid="orders-filters-in-stock"
+                                 value="in-stock"
+                                 v-model="store.query.filter.status" />
+                    <label for="in-stock" class="cursor-pointer">In Stock</label>
+                </div>
+                <div class="field-radiobutton">
+                    <RadioButton name="a-few-left"
+                                 inputId="a-few-left"
+                                 data-testid="orders-filters-a-few-left"
+                                 value="a-few-left"
+                                 v-model="store.query.filter.status" />
+                    <label for="a-few-left" class="cursor-pointer">A Few Left</label>
+                </div>
+                <div class="field-radiobutton">
+                    <RadioButton name="out-of-stock"
+                                 inputId="out-of-stock"
+                                 data-testid="orders-filters-out-of-stock"
+                                 value="out-of-stock"
+                                 v-model="store.query.filter.status" />
+                    <label for="out-of-stock" class="cursor-pointer">Out Of Stock</label>
+                </div>
+
+            </VhFieldVertical>
+
+
         </Sidebar>
 
     </div>

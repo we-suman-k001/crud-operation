@@ -1,5 +1,8 @@
 <?php
 
+
+use Illuminate\Support\Facades\Route;
+
 Route::group(
     [
         'prefix' => 'backend/basic/orders',
@@ -20,6 +23,13 @@ function () {
     Route::get('/', 'OrdersController@getList')
         ->name('vh.backend.basic.orders.list');
     /**
+     * Update status
+     */
+    Route::put('/change-status','OrdersController@changeStatus')
+        ->name('vh.backend.basic.orders.list.change-status');
+
+    /**
+     *
      * Update List
      */
     Route::match(['put', 'patch'], '/', 'OrdersController@updateList')
@@ -42,10 +52,6 @@ function () {
      */
     Route::post('/', 'OrdersController@createItem')
         ->name('vh.backend.basic.orders.create');
-    /**
-     * Update status
-     */
-    Route::put('/change-status','OrdersController@changeStatus');
     /**
      * Get Item
      */

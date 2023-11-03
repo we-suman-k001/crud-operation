@@ -21,9 +21,9 @@ class Order extends Model
 
     //-------------------------------------------------
     protected $casts = [
-        'amount'=>'float',
+        'amount' => 'float',
         'tax' => 'float',
-        'total_amount'=>'float'
+        'total_amount' => 'float'
     ];
     //-------------------------------------------------
     protected $table = 'orders';
@@ -85,14 +85,14 @@ class Order extends Model
         );
         return $fillable_columns;
     }
+
     //-------------------------------------------------
     public static function getEmptyItem()
     {
         $model = new self();
         $fillable = $model->getFillable();
         $empty_item = [];
-        foreach ($fillable as $column)
-        {
+        foreach ($fillable as $column) {
             $empty_item[$column] = null;
         }
 
@@ -201,8 +201,7 @@ class Order extends Model
     public function scopeGetSorted($query, $filter)
     {
 
-        if(!isset($filter['sort']))
-        {
+        if (!isset($filter['sort'])) {
             return $query->orderBy('id', 'desc');
         }
 
@@ -211,8 +210,7 @@ class Order extends Model
 
         $direction = Str::contains($sort, ':');
 
-        if(!$direction)
-        {
+        if (!$direction) {
             return $query->orderBy($sort, 'asc');
         }
 
@@ -220,54 +218,69 @@ class Order extends Model
 
         return $query->orderBy($sort[0], $sort[1]);
     }
+
     //-------------------------------------------------
     public function scopeIsActiveFilter($query, $filter)
     {
 
-        if(!isset($filter['is_active'])
+        if (!isset($filter['is_active'])
             || is_null($filter['is_active'])
             || $filter['is_active'] === 'null'
-        )
-        {
+        ) {
             return $query;
         }
         $is_active = $filter['is_active'];
 
-        if($is_active === 'true' || $is_active === true)
-        {
+        if ($is_active === 'true' || $is_active === true) {
             return $query->where('is_active', 1);
-        } else{
-            return $query->where(function ($q){
+        } else {
+            return $query->where(function ($q) {
                 $q->whereNull('is_active')
                     ->orWhere('is_active', 0);
             });
         }
 
     }
+
     //-------------------------------------------------
     public function scopeTrashedFilter($query, $filter)
     {
 
-        if(!isset($filter['trashed']))
-        {
+        if (!isset($filter['trashed'])) {
             return $query;
         }
         $trashed = $filter['trashed'];
 
-        if($trashed === 'include')
-        {
+        if ($trashed === 'include') {
             return $query->withTrashed();
-        } else if($trashed === 'only'){
+        } else if ($trashed === 'only') {
             return $query->onlyTrashed();
         }
 
     }
+
+    //-------------------------------------------------
+    public function scopeStatusFilter($query, $filter)
+    {
+
+        if (!isset($filter['status'])) {
+            return $query;
+        }
+        $status = $filter['status'];
+        if ($status === 'in-stock') {
+            return $query->where('status','=','in-stock');
+        } else if ($status === 'a-few-left') {
+            return $query->where('status','=','a-few-left');
+        }else if ($status === 'out-of-stock'){
+            return $query->where('status','=','out-of-stock');
+        }
+    }
+
     //-------------------------------------------------
     public function scopeSearchFilter($query, $filter)
     {
 
-        if(!isset($filter['q']))
-        {
+        if (!isset($filter['q'])) {
             return $query;
         }
         $search = $filter['q'];
@@ -277,6 +290,7 @@ class Order extends Model
         });
 
     }
+
     //-------------------------------------------------
     public static function getList($request)
     {
@@ -284,11 +298,11 @@ class Order extends Model
         $list->isActiveFilter($request->filter);
         $list->trashedFilter($request->filter);
         $list->searchFilter($request->filter);
+        $list->statusFilter($request->filter);
 
         $rows = config('vaahcms.per_page');
 
-        if($request->has('rows'))
-        {
+        if ($request->has('rows')) {
             $rows = $request->rows;
         }
 
@@ -326,8 +340,7 @@ class Order extends Model
             return $response;
         }
 
-        if(isset($inputs['items']))
-        {
+        if (isset($inputs['items'])) {
             $items_id = collect($inputs['items'])
                 ->pluck('id')
                 ->toArray();
@@ -392,13 +405,13 @@ class Order extends Model
 
         return $response;
     }
+
     //-------------------------------------------------
     public static function listAction($request, $type): array
     {
         $inputs = $request->all();
 
-        if(isset($inputs['items']))
-        {
+        if (isset($inputs['items'])) {
             $items_id = collect($inputs['items'])
                 ->pluck('id')
                 ->toArray();
@@ -409,36 +422,37 @@ class Order extends Model
 
         $list = self::query();
 
-        if($request->has('filter')){
+        if ($request->has('filter')) {
             $list->getSorted($request->filter);
             $list->isActiveFilter($request->filter);
             $list->trashedFilter($request->filter);
             $list->searchFilter($request->filter);
+            $list->statusFilter($request->filter);
         }
 
         switch ($type) {
             case 'deactivate':
-                if($items->count() > 0) {
+                if ($items->count() > 0) {
                     $items->update(['is_active' => null]);
                 }
                 break;
             case 'activate':
-                if($items->count() > 0) {
+                if ($items->count() > 0) {
                     $items->update(['is_active' => 1]);
                 }
                 break;
             case 'trash':
-                if(isset($items_id) && count($items_id) > 0) {
+                if (isset($items_id) && count($items_id) > 0) {
                     self::whereIn('id', $items_id)->delete();
                 }
                 break;
             case 'restore':
-                if(isset($items_id) && count($items_id) > 0) {
+                if (isset($items_id) && count($items_id) > 0) {
                     self::whereIn('id', $items_id)->restore();
                 }
                 break;
             case 'delete':
-                if(isset($items_id) && count($items_id) > 0) {
+                if (isset($items_id) && count($items_id) > 0) {
                     self::whereIn('id', $items_id)->forceDelete();
                 }
                 break;
@@ -462,21 +476,21 @@ class Order extends Model
             case 'create-5000-records':
             case 'create-10000-records':
 
-            if(!config('basic.is_dev')){
-                $response['success'] = false;
-                $response['errors'][] = 'User is not in the development environment.';
+                if (!config('basic.is_dev')) {
+                    $response['success'] = false;
+                    $response['errors'][] = 'User is not in the development environment.';
 
-                return $response;
-            }
+                    return $response;
+                }
 
-            preg_match('/-(.*?)-/', $type, $matches);
+                preg_match('/-(.*?)-/', $type, $matches);
 
-            if(count($matches) !== 2){
+                if (count($matches) !== 2) {
+                    break;
+                }
+
+                self::seedSampleItems($matches[1]);
                 break;
-            }
-
-            self::seedSampleItems($matches[1]);
-            break;
         }
 
         $response['success'] = true;
@@ -485,6 +499,7 @@ class Order extends Model
 
         return $response;
     }
+
     //-------------------------------------------------
     public static function getItem($id)
     {
@@ -494,10 +509,9 @@ class Order extends Model
             ->withTrashed()
             ->first();
 
-        if(!$item)
-        {
+        if (!$item) {
             $response['success'] = false;
-            $response['errors'][] = 'Record not found with ID: '.$id;
+            $response['errors'][] = 'Record not found with ID: ' . $id;
             return $response;
         }
         $response['success'] = true;
@@ -506,6 +520,7 @@ class Order extends Model
         return $response;
 
     }
+
     //-------------------------------------------------
     public static function updateItem($request, $id)
     {
@@ -548,6 +563,7 @@ class Order extends Model
         return $response;
 
     }
+
     //-------------------------------------------------
     public static function deleteItem($request, $id): array
     {
@@ -565,11 +581,11 @@ class Order extends Model
 
         return $response;
     }
+
     //-------------------------------------------------
     public static function itemAction($request, $id, $type): array
     {
-        switch($type)
-        {
+        switch ($type) {
             case 'activate':
                 self::where('id', $id)
                     ->withTrashed()
@@ -582,8 +598,8 @@ class Order extends Model
                 break;
             case 'trash':
                 self::where('id', $id)
-                ->withTrashed()
-                ->delete();
+                    ->withTrashed()
+                    ->delete();
                 break;
             case 'restore':
                 self::where('id', $id)
@@ -593,17 +609,18 @@ class Order extends Model
         }
         return self::getItem($id);
     }
+
     //-------------------------------------------------
 
     public static function validation($inputs)
     {
 
         $rules = array(
-            'name'         => 'required|max:150',
-            'slug'         => 'required|max:150',
-            'status'       => 'required',
-            'amount'       =>'required|numeric|max_digits:7',
-            'tax'          => 'required|numeric|max_digits:7',
+            'name' => 'required|max:150',
+            'slug' => 'required|max:150',
+            'status' => 'required',
+            'amount' => 'required|numeric|max_digits:7',
+            'tax' => 'required|numeric|max_digits:7',
             'total_amount' => 'required|numeric|max_digits:10'
         );
 
@@ -631,16 +648,15 @@ class Order extends Model
 
     //-------------------------------------------------
     //-------------------------------------------------
-    public static function seedSampleItems($records=100)
+    public static function seedSampleItems($records = 100)
     {
 
         $i = 0;
 
-        while($i < $records)
-        {
+        while ($i < $records) {
             $inputs = self::fillItem(false);
 
-            $item =  new self();
+            $item = new self();
             $item->fill($inputs);
             $item->save();
 
@@ -659,7 +675,7 @@ class Order extends Model
             'except' => self::getUnFillableColumns()
         ]);
         $fillable = VaahSeeder::fill($request);
-        if(!$fillable['success']){
+        if (!$fillable['success']) {
             return $fillable;
         }
         $inputs = $fillable['data']['fill'];
@@ -671,7 +687,7 @@ class Order extends Model
          * You should also return relationship from here
          */
 
-        if(!$is_response_return){
+        if (!$is_response_return) {
             return $inputs;
         }
 
@@ -681,9 +697,19 @@ class Order extends Model
     }
 
     //-------------------------------------------------
-    public static function changeStatus($request){
-        dd($request);
-        return $data['message'] = 'success';
+    public static function changeStatus($request): array
+    {
+        $id = $request->id;
+        $status = $request->status;
+
+        $item = self::where('id', $id)->withTrashed()->first();
+        $item->update(['status' => $status]);
+        $item->save();
+
+        $response = self::getItem($item->id);
+        $response['messages'][] = 'Saved successfully.';
+        return $response;
+
     }
     //-------------------------------------------------
     //-------------------------------------------------

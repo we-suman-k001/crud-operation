@@ -21,6 +21,7 @@ watchEffect(()=>{
     if (store.item && store.item.amount) {
         store.item.tax = store.calculateTax(store.item.amount);
     }
+    if(!store.item.amount){store.item.tax = null}
 })
 
 //--------form_menu
