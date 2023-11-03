@@ -602,9 +602,9 @@ class Order extends Model
             'name'         => 'required|max:150',
             'slug'         => 'required|max:150',
             'status'       => 'required',
-            'amount'       =>'required|numeric',
-            'tax'          => 'required|numeric',
-            'total_amount' => 'required|numeric'
+            'amount'       =>'required|numeric|max_digits:7',
+            'tax'          => 'required|numeric|max_digits:7',
+            'total_amount' => 'required|numeric|max_digits:10'
         );
 
         $validator = \Validator::make($inputs, $rules);

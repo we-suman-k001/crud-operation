@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, watchEffect, watch} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 import {useOrderStore} from '../../stores/store-orders'
 
 import VhField from './../../vaahvue/vue-three/primeflex/VhField.vue'
@@ -17,11 +17,10 @@ onMounted(async () => {
     await store.getFormMenu();
 });
 
-watch(store.item, (value)=>{
-    if (store.item.amount) {
-        console.log(store.item.tax,store.item.total_amount)
+watchEffect(()=>{
+    if (store.item && store.item.amount) {
+        store.item.tax = store.calculateTax(store.item.amount);
     }
-
 })
 
 //--------form_menu

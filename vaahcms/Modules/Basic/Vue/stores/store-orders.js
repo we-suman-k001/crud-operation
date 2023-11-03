@@ -158,6 +158,7 @@ export const useOrderStore = defineStore({
                     this.item.total_amount = this.calculateTotal(amount.value);
                     this.item.tax = this.calculateTax(amount.value);
                 }
+                return null;
             },
             //---------------------------------------------------------------------
            async watchTotalAmount(total){

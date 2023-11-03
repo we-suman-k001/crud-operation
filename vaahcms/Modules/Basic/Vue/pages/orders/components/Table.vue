@@ -74,7 +74,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    &#8377 {{ props.data.amount }}
+                    &#8377 {{parseFloat(props.data.amount).toFixed(2)}}
                 </template>
 
             </Column>
@@ -86,7 +86,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    &#8377 {{ props.data.tax }}
+                    &#8377 {{parseFloat(props.data.tax).toFixed(2)}}
                 </template>
 
             </Column>
@@ -97,7 +97,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    &#8377 {{ props.data.total_amount }}
+                    &#8377 {{parseFloat(props.data.total_amount).toFixed(2)}}
                 </template>
 
             </Column>
