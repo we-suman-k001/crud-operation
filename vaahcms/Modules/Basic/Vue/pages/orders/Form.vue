@@ -174,8 +174,11 @@ const toggleFormMenu = (event) => {
                                  @input="store.watchAmount"
                                  data-testid="orders-amount"
                                  v-model="store.item.amount"
+                                 inputId="currency-india"
+                                 locale="en-IN"
                                  mode="currency"
                                  currency="INR"
+                                 :max-fraction-digits="4"
                     />
                 </VhField>
 
@@ -184,19 +187,25 @@ const toggleFormMenu = (event) => {
                                  name="orders-tax"
                                  data-testid="orders-tax"
                                  v-model="store.item.tax"
+                                 inputId="currency-india"
+                                 locale="en-IN"
                                  mode="currency"
                                  currency="INR"
+                                 :max-fraction-digits="4"
                                  readonly
                     />
                 </VhField>
 
                 <VhField label="Total Amount">
                     <InputNumber class="w-full"
+                                 @input="store.watchTotalAmount"
                                  name="orders-total_amount"
                                  data-testid="orders-total_amount"
+                                 inputId="currency-india"
+                                 locale="en-IN"
                                  mode="currency"
                                  currency="INR"
-                                 @input="store.watchTotalAmount"
+                                 :max-fraction-digits="4"
                                  v-model="store.item.total_amount"/>
                 </VhField>
 
