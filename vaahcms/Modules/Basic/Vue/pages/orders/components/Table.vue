@@ -7,13 +7,13 @@ const useVaah = vaah();
 
 function getSeverity(product) {
     switch (product.status) {
-        case 'In Stock':
+        case 'in-stock':
             return 'success';
 
-        case 'A few left':
+        case 'a-few-left':
             return 'warning';
 
-        case 'Out of stock':
+        case 'out-of-stock':
             return 'danger';
 
         default:
@@ -43,6 +43,7 @@ function getSeverity(product) {
             </Column>
 
             <Column field="name" header="Name"
+                    style="width:180px;"
                     :sortable="true">
 
                 <template #body="prop">
@@ -56,13 +57,33 @@ function getSeverity(product) {
 
 
             <Column field="status" header="Status"
-                    style="width:150px; padding-left:1rem;"
+                    style="width:180px; padding-left:1rem;"
                     :sortable="true">
 
                 <template #body="slotProps">
-                    <Tag :value="slotProps.data.status"
-                         class="p-tag"
-                         :severity="getSeverity(slotProps.data)"/>
+                    <Dropdown :options="store.order_status"
+                              v-model="slotProps.data.status"
+                              option-label="name"
+                              option-value="slug"
+                              :pt="{
+                                        root: { class: [
+                                        'md:w-7rem','border-round-md',
+                                        {
+                                          'bg-red-500': getSeverity(slotProps.data) === 'danger',
+                                          'bg-green-500': getSeverity(slotProps.data) === 'success',
+                                          'bg-orange-400': getSeverity(slotProps.data) === 'warning',
+
+                                        }
+                                        ] },
+                                            item: ({ context }) => ({
+                                                class: context.selected ?
+                                                'bg-primary' : context.focused ?
+                                                'bg-blue-100' : undefined
+                                            }),
+                                            input:({class:['text-white','text-center','font-semibold']}),
+                                            trigger:({class:'p-hidden'})
+                                        }"
+                    />
                 </template>
 
             </Column>
@@ -74,7 +95,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    &#8377 {{parseFloat(props.data.amount).toFixed(2)}}
+                    &#8377 {{ parseFloat(props.data.amount).toFixed(2) }}
                 </template>
 
             </Column>
@@ -86,7 +107,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    &#8377 {{parseFloat(props.data.tax).toFixed(2)}}
+                    &#8377 {{ parseFloat(props.data.tax).toFixed(2) }}
                 </template>
 
             </Column>
@@ -97,7 +118,7 @@ function getSeverity(product) {
                     :sortable="true">
 
                 <template #body="props">
-                    &#8377 {{parseFloat(props.data.total_amount).toFixed(2)}}
+                    &#8377 {{ parseFloat(props.data.total_amount).toFixed(2) }}
                 </template>
 
             </Column>

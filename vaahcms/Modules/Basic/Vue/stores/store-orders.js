@@ -66,7 +66,11 @@ export const useOrderStore = defineStore({
             item_menu_list: [],
             item_menu_state: null,
             form_menu_list: [],
-            order_status: ['In stock', 'A few left', 'Out of stock']
+            order_status: [
+                {name: 'In stock', slug: 'in-stock'},
+                {name: 'A few left', slug: 'a-few-left'},
+                {name: 'Out of stock', slug: 'out-of-stock'}
+            ]
         }),
         getters: {},
         actions: {
@@ -161,8 +165,8 @@ export const useOrderStore = defineStore({
                 return null;
             },
             //---------------------------------------------------------------------
-           async watchTotalAmount(total){
-                if(total.value !== this.item.amount){
+            async watchTotalAmount(total) {
+                if (total.value !== this.item.amount) {
                     this.item.total_amount = total.value;
                     this.item.amount = await this.calculateAmount(this.item.total_amount);
                 }
@@ -904,7 +908,7 @@ export const useOrderStore = defineStore({
             },
             //---------------------------------------------------------------------
             calculateTax(amount) {
-                if(amount !== null){
+                if (amount !== null) {
                     let tax = null;
                     tax = (amount * 10) / 100;
                     return parseFloat(tax.toFixed(4));
@@ -913,7 +917,7 @@ export const useOrderStore = defineStore({
             },
             //---------------------------------------------------------------------
             calculateTotal(amount) {
-                if(amount !== null){
+                if (amount !== null) {
                     let calculated_amount = null;
                     calculated_amount = parseFloat(amount) + (amount * 10) / 100;
                     return parseFloat(calculated_amount.toFixed(4))

@@ -164,6 +164,8 @@ const toggleFormMenu = (event) => {
                               name="orders-status"
                               data-testid="orders-status"
                               v-model="store.item.status"
+                              option-value="slug"
+                              option-label="name"
                               placeholder="Select a status"/>
                 </VhField>
 
