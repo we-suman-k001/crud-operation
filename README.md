@@ -5,6 +5,33 @@
 
 <br/>
 
+# An awesome table for everything 
+![image](https://github.com/we-suman-k001/crud-operation/assets/148761385/1ce37d65-3127-434c-997b-d85ba480f165)
+
+<br/> 
+
+# With interactive dropdows 
+![image](https://github.com/we-suman-k001/crud-operation/assets/148761385/bd0ed26f-3797-46b1-b900-ed81a7eae22f)
+<br />
+# Change status based on selection as well as change all option
+
+![image](https://github.com/we-suman-k001/crud-operation/assets/148761385/a0c1a45c-2345-4a81-87d2-3e4b110c353e) 
+
+![image](https://github.com/we-suman-k001/crud-operation/assets/148761385/5d814902-3b30-4878-8f10-069dae02413d) 
+
+<br/>
+
+# awesome form for product creation with automatic tax calculator 
+![image](https://github.com/we-suman-k001/crud-operation/assets/148761385/0c24b738-657b-4920-899b-d9cf8176c79d)
+
+
+
+
+
+</p>
+
+<br/>
+
 > **[VaahCMS](https://vaah.dev/cms)** is an open-source web application development platform shipped with headless content management system.
 
 <br/>
