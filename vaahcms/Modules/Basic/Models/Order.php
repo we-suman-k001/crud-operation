@@ -441,6 +441,21 @@ class Order extends Model
                     $items->update(['is_active' => 1]);
                 }
                 break;
+            case 'in-stock':
+                if ($items->count() > 0) {
+                    $items->update(['status' => 'in-stock']);
+                }
+                break;
+            case 'a-few-left':
+                if ($items->count() > 0) {
+                    $items->update(['status' => 'a-few-left']);
+                }
+                break;
+            case 'out-of-stock':
+                if ($items->count() > 0) {
+                    $items->update(['status' => 'out-of-stock']);
+                }
+                break;
             case 'trash':
                 if (isset($items_id) && count($items_id) > 0) {
                     self::whereIn('id', $items_id)->delete();
@@ -470,6 +485,15 @@ class Order extends Model
                 break;
             case 'delete-all':
                 $list->forceDelete();
+                break;
+            case 'in-stock' :
+                $list->update(['status'=>'in-stock']);
+                break;
+            case 'a-few-left' :
+                $list->update(['status'=>'a-few-left']);
+                break;
+            case 'out-of-stock' :
+                $list->update(['status'=>'out-of-stock']);
                 break;
             case 'create-100-records':
             case 'create-1000-records':

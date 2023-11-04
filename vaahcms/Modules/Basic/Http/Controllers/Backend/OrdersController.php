@@ -242,7 +242,8 @@ class OrdersController extends Controller
         }
     }
     //----------------------------------------------------------
-    public function bulkChangeStatus(Request $request){
+    public function bulkChangeStatus(Request $request): array
+    {
         try{
             return Order::bulkChangeStatus($request);
         }catch (\Exception $e){

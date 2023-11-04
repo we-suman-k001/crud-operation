@@ -754,6 +754,27 @@ export const useOrderStore = defineStore({
                         separator: true
                     },
                     {
+                        label: 'Change All - In Stock',
+                        command: async () => {
+                            await this.listAction('in-stock')
+                        }
+                    },
+                    {
+                        label: 'Change All - A Few Left',
+                        command: async () => {
+                            await this.listAction('a-few-left')
+                        }
+                    },
+                    {
+                        label: 'Change All - Out Of Stock',
+                        command: async () => {
+                            await this.listAction('out-of-stock')
+                        }
+                    },
+                    {
+                        separator: true
+                    },
+                    {
                         label: 'Trash All',
                         icon: 'pi pi-times',
                         command: async () => {
