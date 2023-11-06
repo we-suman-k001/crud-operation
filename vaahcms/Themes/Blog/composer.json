@@ -1,6 +1,6 @@
 {
-    "name": "vaahcms/basic",
-    "description": "description",
+    "name": "vaahcms/blog",
+    "description": "blog",
     "version": "0.0.1",
     "authors": [
         {
@@ -9,12 +9,12 @@
         }
     ],
     "require": {
-        "php": "^8.1"
+        "php": "^7.0"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VaahCms\\Modules\\Basic\\Providers\\BasicServiceProvider"
+                "VaahCms\\Themes\\Blog\\Providers\\BlogServiceProvider"
             ],
             "aliases": {
             }
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "VaahCms\\Modules\\Basic\\": ""
+            "VaahCms\\Themes\\Blog\\": ""
         }
     }
 }

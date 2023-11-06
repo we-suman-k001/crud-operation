@@ -3,11 +3,6 @@
 /public/build
 /public/hot
 /public/storage
-/app
-/bootstrap
-/config
-/database
-/routes
 /tests
 /storage/*.key
 /vendor
@@ -17,9 +12,8 @@
 /vaahcms/Modules/Basic/Vue/vaahvue
 
 
-/.env.basic
+
 .env
-.env.basic
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
